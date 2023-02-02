@@ -108,8 +108,13 @@ public class Game
         }
 
         if (won)
+        {
             Console.WriteLine("Well done! You won!");
+        }
         else
+        {
             Console.WriteLine("Sorry, you lost.");
+            Console.WriteLine($"The word was: {game.gameWord.Word}");
+        }
     }
 }
