@@ -87,8 +87,7 @@ public class Game
 
     public static void Main(string[] args)
     {
-        Game game = new Game("TRAIN");
-        // Game game = new Game(WordList.RandomWord());
+        Game game = new Game(WordList.RandomWord());
         bool won = false;
 
         while (game.GuessesLeft > 0 && !won)
