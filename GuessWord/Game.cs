@@ -94,7 +94,7 @@ public class Game
         {
             Console.WriteLine("Make a 5 letter word guess:");
             string? guessWord = Console.ReadLine();
-            while (guessWord == null || guessWord.Length != 5 || !WordList.Words.Contains(guessWord.ToUpper()))
+            while (guessWord == null || guessWord.Length != 5 || !WordList.IsWord(guessWord.ToUpper()))
             {
                 Console.WriteLine("Guess must be a valid 5 letter word. Try again:");
                 guessWord = Console.ReadLine();

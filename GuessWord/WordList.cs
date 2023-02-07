@@ -3,7 +3,7 @@ namespace GuessWord;
 internal static class WordList
 {
     private static readonly Random random = new Random();
-    internal static readonly HashSet<string> Words = new HashSet<string> {
+    private static readonly HashSet<string> Words = new HashSet<string> {
         "AAHED", "AALII", "AARGH", "AARON", "ABACA", "ABACI", "ABACK", "ABADA", "ABAFF", "ABAFT",
         "ABAKA", "ABAMA", "ABAMP", "ABAND", "ABASE", "ABASH", "ABASK", "ABATE", "ABAUE", "ABAVE",
         "ABAZE", "ABBAS", "ABBEY", "ABBES", "ABBIE", "ABBOT", "ABDAL", "ABDAT", "ABDOM", "ABEAM",
@@ -1599,4 +1599,5 @@ internal static class WordList
     };
 
     internal static string RandomWord() => Words.ElementAt(random.Next(Words.Count));
+    internal static bool IsWord(string word) => Words.Contains(word);
 }
