@@ -67,6 +67,38 @@ public class Game
         return true;
     }
 
+    public void ShowGuessColours()
+    {
+        Console.Clear();
+        ConsoleColor fgColour = Console.ForegroundColor;
+
+        foreach (Guess guess in Guesses)
+        {
+            for (int i = 0; i < guess.State.Length; i++)
+            {
+                Console.ForegroundColor = stateColour(guess.State[i]);
+                Console.Write("+---+ ");
+            }
+            Console.WriteLine();
+
+            for (int i = 0; i < guess.State.Length; i++)
+            {
+                Console.ForegroundColor = stateColour(guess.State[i]);
+                Console.Write($"| {guess.Word[i]} | ");
+            }
+            Console.WriteLine();
+
+            for (int i = 0; i < guess.State.Length; i++)
+            {
+                Console.ForegroundColor = stateColour(guess.State[i]);
+                Console.Write("+---+ ");
+            }
+            Console.WriteLine();
+        }
+
+        Console.ForegroundColor = fgColour;
+    }
+
     public void ShowGuessWord(Guess guess)
     {
         ConsoleColor savedForegroundColour = Console.ForegroundColor;
@@ -85,18 +117,38 @@ public class Game
         Console.ForegroundColor = savedForegroundColour;
     }
 
+    private ConsoleColor stateColour(LetterState state)
+    {
+        ConsoleColor colour;
+
+        if (state == LetterState.ABSENT)
+            colour = ConsoleColor.DarkGray;
+        else if (state == LetterState.PRESENT)
+            colour = ConsoleColor.Yellow;
+        else if (state == LetterState.CORRECT)
+            colour = ConsoleColor.Green;
+        else
+            colour = Console.ForegroundColor;
+
+        return colour;
+    }
+
     public static void Main(string[] args)
     {
         Game game = new Game(WordList.RandomWord());
         bool won = false;
+        
+        Console.Clear();
+        Console.WriteLine("Guess the 5 letter word in 6 guesses.");
 
         while (game.GuessesLeft > 0 && !won)
         {
-            Console.WriteLine("Make a 5 letter word guess:");
+            Console.Write("> ");
             string? guessWord = Console.ReadLine();
             while (guessWord == null || guessWord.Length != 5 || !WordList.IsWord(guessWord.ToUpper()))
             {
-                Console.WriteLine("Guess must be a valid 5 letter word. Try again:");
+                Console.WriteLine("Guess must be a valid 5 letter word. Try again.");
+                Console.Write("> ");
                 guessWord = Console.ReadLine();
             }
 
@@ -104,7 +156,7 @@ public class Game
             game.GuessesLeft--;
             Guess guess = game.MakeGuess(guessWord);
             won = game.IsGuessCorrect(guess);
-            game.ShowGuessWord(guess);
+            game.ShowGuessColours();
         }
 
         if (won)
